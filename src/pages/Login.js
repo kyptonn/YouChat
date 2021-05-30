@@ -56,7 +56,7 @@ class Login extends Component {
                               <h2 style={{color:'white', marginTop:"10px"}} className="text-center">Iniciar Sesión</h2>
                             </MediaQuery>
                             <MediaQuery minWidth={800}>
-                              <h2 style={{color:'white', marginTop:"250px"}} className="mt-6 text-center">Iniciar Sesión</h2>
+                              <h2 style={{color:'white', marginTop:"100px"}} className="mt-6 text-center">Iniciar Sesión</h2>
                             </MediaQuery>
                                
                                 <br/>

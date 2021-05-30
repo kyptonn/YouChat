@@ -23,7 +23,7 @@ export default function Home() {
     let history = useHistory()
 
     if(auth.currentUser == null){
-        history.push('/login')
+        window.location.replace('/login')
     }
     const [loading, setLoading] = useState(true)
     const [convers, setConvers] = useState(false)
