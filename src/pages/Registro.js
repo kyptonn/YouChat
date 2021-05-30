@@ -3,6 +3,7 @@ import { auth, createUserDocument } from '../firebase';
 import {Link} from 'react-router-dom'
 import chatlogo from '../images/unnamed.png'
 import { Toast } from 'react-bootstrap';
+import MediaQuery from 'react-responsive'
 
 class Singup extends Component {
   state = { displayName: '', email: '', password: '' };
@@ -46,15 +47,23 @@ class Singup extends Component {
     return (
       <>
           <div className="home space-between">
+            <MediaQuery minWidth={800}>
             <div className="portada-izq column-center center">
                 <img src={chatlogo}/>
             </div>
+            </MediaQuery>
 
             <div className="portada-der">
             <form className="signup-login" onSubmit={this.handleSubmit}>
             <div className="column-center">
             <br></br>
+            <MediaQuery maxWidth={800}>
+            <h2 style={{color:'white', marginTop:"200px"}} className="text-center">Registrarse</h2>
+            </MediaQuery>
+            <MediaQuery minWidth={800}>
             <h2 style={{color:'white', marginTop:"250px"}} className="mt-6 text-center">Registrarse</h2>
+            </MediaQuery>
+
             <br></br>
           
             {/* <label>Nombre usuario</label> */}

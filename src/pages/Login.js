@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { auth, createUserDocument } from '../firebase';
 import chatlogo from '../images/unnamed.png'
-
+import MediaQuery from 'react-responsive'
 
 
 class Login extends Component {
@@ -41,15 +41,24 @@ class Login extends Component {
     return (
 <>
         <div className="home space-between">
+          <MediaQuery minWidth={800}>
             <div className="portada-izq column-center center">
                 <img src={chatlogo}/>
             </div>
+            </MediaQuery>
             <div className="portada-der">
                     <form style={{marginTop:'200px'}}className="signup-login" onSubmit={this.handleSubmit}>
                         <div className="container-master">
                             <div className="column-center">
                             <br></br>
-                                <h2 style={{color:'white'}} className="mt-6 text-center">Iniciar Sesión</h2>
+                               
+                            <MediaQuery maxWidth={800}>
+                              <h2 style={{color:'white', marginTop:"10px"}} className="text-center">Iniciar Sesión</h2>
+                            </MediaQuery>
+                            <MediaQuery minWidth={800}>
+                              <h2 style={{color:'white', marginTop:"250px"}} className="mt-6 text-center">Iniciar Sesión</h2>
+                            </MediaQuery>
+                               
                                 <br/>
                                
                                 {/* <label>Email</label> */}
@@ -81,6 +90,7 @@ class Login extends Component {
                         </div>
                     </form>
                 </div>
+               
             </div>
      </>
     );

@@ -13,6 +13,7 @@ import Chat from '../components/Chat'
 import ReactScrollableFeed from 'react-scrollable-feed'
 import MediaQuery, { useMediaQuery } from 'react-responsive'
 import back from '../images/back.png'
+import { Spinner } from 'react-bootstrap'
 
 const db = app.firestore()
 
@@ -121,6 +122,8 @@ export default function Home() {
            alert(err)
         }
     }
+
+
     const IniciarChat = async() => {
         // HAY QUE BUSCAR EN TODOS LOS 'users' QUIEN TENGA ESE NOMBRE DEFINIDO (NOMBRE DE USUARIO)
         // CUANDO LO ENCUENTRE, LO AÑADIMOS COMO NUEVA CONVERSACION A LA DB DEL CURRENT USER
@@ -138,6 +141,7 @@ export default function Home() {
                 uid: auth.currentUser.uid,
                 uidRemitente: newChatArray[0].usuario,
             }) 
+            history.go(0)
         }catch(err){
             alert('Parece que hay un error con el Nombre de Usuario introducido')
         }
@@ -160,10 +164,18 @@ export default function Home() {
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 800px)' })   
     const isBigScreen = useMediaQuery({ query: '(min-width: 801px)' }) 
 
-    const [convChat, setConvChat] = useState('app-column-izq')
+    const [convChat, setConvChat] = useState('app-column-der-hidden')
 
     if(loading){
-        return <h1>Cargando</h1>
+        return (
+            <div className="column-center center">
+             {/*    <h1>Cargando</h1> */}
+             <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner>
+               
+            </div>
+        )
     }
 
     return (
@@ -189,7 +201,7 @@ export default function Home() {
 
                 {/* PANTALLA PEQUEÑA */}
                 {isTabletOrMobile && <>
-                <div className={convChat}>
+                <div className="app-column-izq">
                     <div className="conversaciones space-between">
                         <h3>Conversaciones</h3>
                         <img onClick={() => NewConver()} src={newConver}/>
@@ -197,7 +209,7 @@ export default function Home() {
                     </div>
 
                     {convers.map((data) => (
-                        <div onClick={() => {StartChat(data.uidRemitente); setConvChat('app-column-izq-hidden')}}className="contactos mt-3">
+                        <div onClick={() => {StartChat(data.uidRemitente); setConvChat('app-column-der column-center')}}className="contactos mt-3">
                             <div className="flex">
                                 {data.avatarRemitente === null ?
                                 <>
@@ -227,20 +239,20 @@ export default function Home() {
                     ))}
                 </div>
                 
+                                
 
-
-                <div style={{placeItems:'center'}}className="app-column-der column-center ">
+                <div style={{placeItems:'center'}}className={convChat}>
 
                     <div className="container-chat">
                         <div style={{padding:'10px', borderBottom:'solid 1px grey'}} className="linea-contacto flex">
                             {converActual[0].avatarRemitente === null ? 
                              <>
-                            <img onClick={() => setConvChat('app-column-izq')} src={back}/>
+                            <img onClick={() => setConvChat('app-column-der-hidden')} src={back}/>
                              <img src={avatar}/> 
                              </>                   
                             :
                              <>
-                            <img onClick={() => setConvChat('app-column-izq')} src={back}/>
+                            <img onClick={() => setConvChat('app-column-der-hidden')} src={back}/>
                             <img src={converActual[0].avatarRemitente}/>
                              </>                   
                             }
